@@ -1,0 +1,215 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<title>Пионерская дружина им. Героя Советского Союза М. Г. Селезнева</title>
+
+<script>
+const SITE = {
+  title: "Пионерская дружина им. Героя Советского Союза Михаила Григорьевича Селезнева",
+  footer: "."
+};
+
+const HERO_CARD = {
+  title: "Герой Советского Союза — Михаил Григорьевич Селезнёв",
+  text: `Михаил Селезнев родился в 1915 г. в деревне Малая Кивара Удмуртской АССР. 
+В апреле 1941 г. был призван на военные сборы и направлен в Белорусскую ССР. С начала Великой Отечественной войны - в действующей армии. Был четыре раза ранен. Участвовал в Сталинградской битве, сражался на Курской дуге, освобождал Белоруссию.
+К июню 1944 г. сержант Селезнев командовал отделением 1348-го стрелкового полка 399-й стрелковой дивизии 48-й армии 1-го Белорусского фронта. 30 июня 1944 года отделение Селезнёва принимало активное участие в боях за освобождение деревни Сычково Бобруйского района. В критический момент боя Селезнёв закрыл собой амбразуру немецкого дзота, ценой своей жизни обеспечив успех всего подразделения. Похоронен в братской могиле в Сычково. Указом Президиума Верховного Совета СССР от 24 марта 1945 г. сержант Селезнев посмертно был удостоен высокого звания Героя Советского Союза.`,
+  image: "assets/photos/Селезнёв_Михаил_Григорьевич.jpg",
+  caption: "Михаил Григорьевич Селезнёв"
+};
+
+const SECTIONS = [
+  {
+    title: "Краткая справка",
+    text: `Пионеры — это школьники в возрасте примерно от 9 до 14 лет, которые состояли в детской организации Советского Союза — Всесоюзная пионерская организация имени В. И. Ленина.
+Пионерская организация существовала почти во всех школах страны и объединяла миллионы детей.
+
+Если говорить простым языком, пионеры — это большое сообщество школьников, где учили дружить, работать вместе, уважать старших и не оставаться равнодушными к чужим проблемам.`,
+    photos: []
+  },
+  {
+    title: "Традиции и символика",
+    text: `Главным символом пионеров был красный галстук — знак верности идеалам и принадлежности к организации.
+Также важную роль играли знамя, горн, барабан и пионерский салют, создававшие торжественную атмосферу на линейках и сборах.`,
+    photos: [
+      { src:"assets/photos/002.jpg", caption:"Пионерский галстук" },
+      { src:"assets/photos/003.jpg", caption:"Торжественная линейка" }
+    ]
+  },
+  {
+    title: "Фотоархив",
+    text: "Походы, слёты, школьные мероприятия и памятные события.",
+    photos: [
+      { src:"assets/photos/004.jpg", caption:"Поход отряда" }
+    ]
+  }
+];
+</script>
+
+<style>
+:root{
+  --red:#c4001a;
+  --bg:#f4efe9;
+  --paper:#fffdf8;
+  --muted:#5c5c5c;
+}
+
+body{
+  margin:0;
+  font-family:Georgia,"Times New Roman",serif;
+  background:linear-gradient(135deg,rgba(196,0,26,.12),transparent 40%),var(--bg);
+}
+
+header,main{
+  max-width:1100px;
+  margin:auto;
+  padding:16px;
+}
+
+.paper{
+  background:var(--paper);
+  padding:16px;
+  border-radius:16px;
+  margin-bottom:16px;
+}
+
+h1,h2,h3{color:var(--red)}
+
+.hero-card{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:16px;
+}
+
+.hero-card img{
+  width:100%;
+  height:320px;
+  object-fit:cover;
+  border:3px solid var(--red);
+  border-radius:12px;
+}
+
+.section h3{
+  background:var(--red);
+  color:white;
+  padding:8px 12px;
+  border-radius:8px;
+}
+
+.gallery{
+  display:grid;
+  grid-template-columns:repeat(2,1fr);
+  gap:12px;
+  margin-top:12px;
+}
+
+.gallery img{
+  width:100%;
+  height:200px;
+  object-fit:cover;
+  border:2px solid var(--red);
+  border-radius:12px;
+}
+
+footer{
+  color:var(--muted);
+  font-size:13px;
+}
+
+.section p, .hero-text{
+  white-space: pre-line;
+}
+</style>
+</head>
+
+<body>
+
+<header class="paper">
+  <h1 id="siteTitle"></h1>
+</header>
+
+<main>
+
+<!-- Карточка героя вместо Hero -->
+<section class="paper hero-card">
+  <div>
+    <h2 id="heroTitle"></h2>
+    <p class="hero-text" id="heroText"></p>
+  </div>
+  <div>
+    <img id="heroImage">
+    <small id="heroCaption"></small>
+  </div>
+</section>
+
+<div id="sections"></div>
+
+<footer class="paper">
+  <p id="footerText"></p>
+</footer>
+
+</main>
+
+<script>
+document.title = SITE.title;
+document.getElementById("siteTitle").textContent = SITE.title;
+
+/* Карточка героя */
+document.getElementById("heroTitle").textContent = HERO_CARD.title;
+document.getElementById("heroText").textContent = HERO_CARD.text;
+
+const heroImg = document.getElementById("heroImage");
+heroImg.src = HERO_CARD.image;
+heroImg.alt = HERO_CARD.caption;
+
+document.getElementById("heroCaption").textContent = HERO_CARD.caption;
+
+/* Разделы */
+const sectionsEl = document.getElementById("sections");
+
+SECTIONS.forEach(sec=>{
+  const block = document.createElement("section");
+  block.className = "paper section";
+
+  const h3 = document.createElement("h3");
+  h3.textContent = sec.title;
+
+  const p = document.createElement("p");
+  p.textContent = sec.text;
+
+  block.appendChild(h3);
+  block.appendChild(p);
+
+  if (sec.photos?.length){
+    const g = document.createElement("div");
+    g.className = "gallery";
+
+    sec.photos.forEach(photo=>{
+      const wrap = document.createElement("div");
+
+      const img = document.createElement("img");
+      img.src = photo.src;
+      img.alt = photo.caption || "";
+
+      const cap = document.createElement("small");
+      cap.textContent = photo.caption || "";
+
+      wrap.appendChild(img);
+      wrap.appendChild(cap);
+      g.appendChild(wrap);
+    });
+
+    block.appendChild(g);
+  }
+
+  sectionsEl.appendChild(block);
+});
+
+document.getElementById("footerText").textContent = SITE.footer;
+</script>
+
+</body>
+</html>
